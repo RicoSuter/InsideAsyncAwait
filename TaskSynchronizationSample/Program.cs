@@ -19,12 +19,6 @@ namespace TaskSynchronizationSample
                 RunAsync(i);
 
             Console.ReadKey();
-
-            Console.WriteLine("With locks (tasks are executed after each other):");
-            for (int i = 0; i < 10; i++)
-                RunAsync(i);
-
-            Console.ReadKey();
         }
 
         private static async Task NotSynchronizedRunAsync(int i)
@@ -36,7 +30,7 @@ namespace TaskSynchronizationSample
 
         private static Task RunAsync(int i)
         {
-            return _lock.Run(async () =>
+            return _lock.RunAsync(async () =>
             {
                 Console.WriteLine("Before: " + i);
                 await Task.Delay(new Random().Next(300, 500));
@@ -54,9 +48,9 @@ namespace TaskSynchronizationSample
         /// <summary>Executes the given task when the previous task has been completed.</summary>
         /// <param name="task">The task function.</param>
         /// <returns>The task.</returns>
-        public Task Run(Func<Task> task)
+        public Task RunAsync(Func<Task> task)
         {
-            return Run(async () =>
+            return RunAsync(async () =>
             {
                 await task();
                 return null;
@@ -74,7 +68,7 @@ namespace TaskSynchronizationSample
         /// <summary>Executes the given task when the previous task has been completed.</summary>
         /// <param name="task">The task function.</param>
         /// <returns>The task.</returns>
-        public Task<T> Run(Func<Task<T>> task)
+        public Task<T> RunAsync(Func<Task<T>> task)
         {
             lock (_lock)
             {

@@ -15,7 +15,7 @@ namespace AsyncCacheManagerSample
     // Sources can be found here: 
     // https://github.com/MyToolkit/MyToolkit/blob/master/src/MyToolkit/Data/AsyncCacheManager.cs
 
-    /// <summary>A cache manager with supports asynchronous, task based item creation functions.</summary>
+    /// <summary>A cache manager which supports asynchronous, task based item creation functions.</summary>
     /// <typeparam name="TKey">The type of the key/identifier of an item.</typeparam>
     /// <typeparam name="TItem">The type of the item.</typeparam>
     public class AsyncCacheManager<TKey, TItem>
